@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nick Olivier - English Teacher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #111111;
+            --white: #ffffff;
+            --gray: #666666;
+            --grid-line: #ebebeb;
+        }
+        
+        * { 
+            box-sizing: border-box; 
+        }
+        
+        html {
+            scroll-behavior: smooth; 
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--white);
+            color: var(--black);
+            background-image: linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 20vw 100%;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Floating Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 5vw;
+            font-weight: 600;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--grid-line);
+            z-index: 1000;
+        }
+        
+        .logo { font-size: 25px; font-weight: 800; letter-spacing: -0.5px; }
+        
+        .lang-nav { display: flex; gap: 15px; align-items: center; }
+        .lang-nav img {
+            width: 32px; height: 24px; object-fit: cover; border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1); filter: grayscale(100%);
+            opacity: 0.4; transition: all 0.3s ease;
+        }
+        
+        /* THIS NOW TRIGGERS ON HOVER OR WHEN THE JS ADDS THE "ACTIVE" CLASS */
+        .lang-nav a.active img, 
+        .lang-nav a:hover img {
+            filter: grayscale(0%); opacity: 1; transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Content Sections */
+        .lang-section { 
+            display: flex; 
+            min-height: 100vh; 
+            padding: 120px 5vw 60px; 
+            border-bottom: 1px solid var(--grid-line);
+        }
+        
+        .left-col { flex: 1.2; padding-top: 5vh; padding-right: 6vw; min-width: 0; }
+        .right-col { flex: 0.8; display: flex; align-items: center; justify-content: center; position: relative; min-width: 0; }
+        
+        h1 { font-size: clamp(40px, 5vw, 80px); line-height: 1.1; letter-spacing: -2px; margin-bottom: 60px; font-weight: 800; }
+        
+        .action-block { display: flex; align-items: flex-start; gap: 30px; margin-bottom: 60px; }
+        .btn-wrapper { display: flex; align-items: center; gap: 15px; }
+        .btn-square {
+            width: 60px; height: 60px; background: var(--black); color: var(--white);
+            display: flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+        .btn-square:hover { transform: scale(1.05); }
+        .btn-square svg { width: 24px; height: 24px; fill: white; }
+        
+        .intro-text { flex: 1; font-size: 20px; color: var(--black); line-height: 1.8; font-weight: 400; }
+        
+        .philosophy { font-size: 14px; line-height: 1.7; color: var(--black); max-width: 90%; margin-bottom: 30px; }
+        .philosophy p { margin-bottom: 15px; }
+        .philosophy strong { font-weight: 600; }
+        
+        .right-col img { 
+            width: 400px; 
+            max-width: 100%; 
+            aspect-ratio: 3 / 4; 
+            object-fit: cover; 
+            object-position: center top; 
+            filter: grayscale(100%) contrast(1.1); 
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 40px 5vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: auto; 
+        }
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        footer a:hover {
+            opacity: 0.6;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 900px) {
+            nav { flex-direction: column; gap: 20px; padding: 20px; }
+            .lang-section { flex-direction: column; padding-top: 140px; }
+            .left-col { padding-right: 0; margin-bottom: 40px; }
+            .right-col img { max-height: 50vh; margin-bottom: 40px; }
+            footer { flex-direction: column; gap: 20px; padding: 40px 20px; text-align: center; }
+            .action-block { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Navigation -->
+    <nav>
+        <div class="logo">Nick Olivier</div>
+        <div class="lang-nav">
+            <a href="#en" title="English"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/gb.svg" alt="EN"></a>
+            <a href="#ja" title="Japanese"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/jp.svg" alt="JA"></a>
+            <a href="#ko" title="Korean"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/kr.svg" alt="KR"></a>
+            <a href="#zh" title="Chinese"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/cn.svg" alt="CN"></a>
+            <a href="#vi" title="Vietnamese"><img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/vn.svg" alt="VN"></a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- ENGLISH SECTION -->
+        <section id="en" class="lang-section">
+            <div class="left-col">
+                <h1>Teaching English with patience, purpose - and music.</h1>
+                
+                <div class="action-block">
+                    <div class="btn-wrapper">
+                        <a href="mailto:nickolivierteach@gmail.com" class="btn-square" title="Email Me">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </a>
+                    </div>
+                    <div class="intro-text">
+                        I hold a Bachelor’s degree in Psychology and a TEFL certificate. All required documents for employment are prepared. I am ready to relocate and begin teaching immediately.
+                    </div>
+                </div>
+
+                <div class="philosophy">
+                    <p>To Whom It May Concern,</p>
+                    <p>I am a patient and dedicated teacher who enjoys helping students build confidence in English through clear explanations, encouragement, and consistent practice. I believe students learn best in a positive environment where they feel comfortable participating.</p>
+                    <p><strong>Music & Extracurriculars:</strong> In addition to English, I teach practical music and guitar. I would be happy to support music activities, performances, or events that encourage creativity among students.</p>
+                    <p>I am calm, reliable, and value preparation, teamwork, and professionalism. I look forward to contributing to your teaching team.</p>
+                    <p>Warm Regards,<br>Nick Olivier</p>
+                </div>
+            </div>
+            
+            <div class="right-col">
+                <img src="images/en.jpg" alt="Profile of Nick - English">
+            </div>
+        </section>
+
+        <!-- JAPANESE SECTION -->
+        <section id="ja" class="lang-section">
+            <div class="left-col">
+                <h1>忍耐、目的、そして音楽と共に英語を教える。</h1>
+                
+                <div class="action-block">
+                    <div class="btn-wrapper">
+                        <a href="mailto:nickolivierteach@gmail.com" class="btn-square" title="Email Me">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </a>
+                    </div>
+                    <div class="intro-text">
+                        私は心理学の学士号とTEFL資格を保有しています。就労に必要な書類はすべて準備済みです。いつでも移住してすぐに指導を始めることができます。
+                    </div>
+                </div>
+
+                <div class="philosophy">
+                    <p>採用ご担当者様、</p>
+                    <p>私は忍耐強く献身的な教師であり、明確な説明、励まし、一貫した練習を通じて、生徒が英語に自信を持てるようサポートすることに喜びを感じています。生徒は、安心して参加できるポジティブな環境でこそ、最もよく学ぶことができると信じています。</p>
+                    <p><strong>音楽と課外活動：</strong> 英語の指導に加えて、実用音楽やギターも教えています。生徒の創造力を育む音楽活動、パフォーマンス、または学校行事を喜んでサポートさせていただきます。</p>
+                    <p>私は穏やかで信頼できる性格であり、事前の準備、チームワーク、そしてプロ意識を大切にしています。貴校の教育チームに貢献できる日を楽しみにしています。</p>
+                    <p>敬具<br>ニコラス・オリビエ</p>
+                </div>
+            </div>
+            
+            <div class="right-col">
+                <img src="images/ja.jpg" alt="Profile of Nickolas - Japanese">
+            </div>
+        </section>
+
+        <!-- KOREAN SECTION -->
+        <section id="ko" class="lang-section">
+            <div class="left-col">
+                <h1>인내, 목적, 그리고 음악으로 영어를 가르칩니다.</h1>
+                
+                <div class="action-block">
+                    <div class="btn-wrapper">
+                        <a href="mailto:nickolivierteach@gmail.com" class="btn-square" title="Email Me">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </a>
+                    </div>
+                    <div class="intro-text">
+                        저는 심리학 학사 학위와 TEFL 자격증을 보유하고 있습니다. 취업에 필요한 모든 서류가 준비되어 있으며 언제든 이주하여 바로 수업을 시작할 수 있습니다.
+                    </div>
+                </div>
+
+                <div class="philosophy">
+                    <p>채용 담당자님께,</p>
+                    <p>저는 명확한 설명과 격려를 통해 학생들이 영어에 자신감을 가질 수 있도록 돕는 인내심 강하고 헌신적인 교사입니다. 학생들이 편안하게 참여할 수 있는 긍정적인 환경에서 가장 잘 배울 수 있다고 믿습니다.</p>
+                    <p><strong>음악 및 특별 활동:</strong> 영어 교육 외에도 실용 음악과 기타를 가르칩니다. 학생들의 창의력을 키워줄 수 있는 음악 활동이나 소규모 학교 행사를 기꺼이 지원하겠습니다.</p>
+                    <p>저는 차분하고 신뢰할 수 있으며, 교실에서의 철저한 준비와 팀워크를 중요하게 생각합니다. 귀교의 교육 팀에 합류하기를 고대합니다.</p>
+                    <p>감사합니다.<br>니콜라스 올리비에 드림</p>
+                </div>
+            </div>
+            
+            <div class="right-col">
+                <img src="images/ko.jpg" alt="Profile of Nickolas - Korean">
+            </div>
+        </section>
+
+        <!-- CHINESE SECTION -->
+        <section id="zh" class="lang-section">
+            <div class="left-col">
+                <h1>以耐心、目标和音乐教授英语。</h1>
+                
+                <div class="action-block">
+                    <div class="btn-wrapper">
+                        <a href="mailto:nickolivierteach@gmail.com" class="btn-square" title="Email Me">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </a>
+                    </div>
+                    <div class="intro-text">
+                        我拥有心理学学士学位和TEFL证书。我已经准备好了就业所需的所有文件，随时可以搬迁并立即开始教学。
+                    </div>
+                </div>
+
+                <div class="philosophy">
+                    <p>尊敬的招聘主管：</p>
+                    <p>我是一名耐心且有责任心的老师，喜欢通过清晰的解释、鼓励和持续的练习来帮助学生建立英语自信。我相信学生在可以毫无压力地参与的积极环境中学习效果最好。</p>
+                    <p><strong>音乐与课外活动：</strong> 除了英语，我还教授实用音乐和吉他。我非常乐意协助音乐活动、学生表演或校园活动，以培养学生的创造力。</p>
+                    <p>我性格沉稳可靠，非常注重备课、团队合作及专业素养。希望能有机会加入贵校的教学团队。</p>
+                    <p>诚挚地，<br>Nick Olivier</p>
+                </div>
+            </div>
+            
+            <div class="right-col">
+                <img src="images/zh.jpg" alt="Profile of Nickolas - Chinese">
+            </div>
+        </section>
+
+        <!-- VIETNAMESE SECTION -->
+        <section id="vi" class="lang-section">
+            <div class="left-col">
+                <h1>Giảng dạy tiếng Anh bằng sự kiên nhẫn, mục tiêu - và âm nhạc.</h1>
+                
+                <div class="action-block">
+                    <div class="btn-wrapper">
+                        <a href="mailto:nickolivierteach@gmail.com" class="btn-square" title="Email Me">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        </a>
+                    </div>
+                    <div class="intro-text">
+                        Tôi có Bằng Cử nhân Tâm lý học và Chứng chỉ TEFL. Mọi giấy tờ cần thiết để làm việc đã được chuẩn bị đầy đủ. Tôi sẵn sàng chuyển đến và bắt đầu công việc giảng dạy ngay lập tức.
+                    </div>
+                </div>
+
+                <div class="philosophy">
+                    <p>Kính gửi Ban tuyển dụng,</p>
+                    <p>Tôi là một giáo viên kiên nhẫn, tận tâm, thích giúp học sinh xây dựng sự tự tin qua việc giải thích rõ ràng, động viên và thực hành thường xuyên. Tôi tin học sinh sẽ học tốt nhất trong môi trường tích cực, nơi các em cảm thấy thoải mái tham gia.</p>
+                    <p><strong>Âm nhạc & Ngoại khóa:</strong> Ngoài tiếng Anh, tôi còn dạy âm nhạc và guitar. Tôi rất sẵn lòng hỗ trợ các hoạt động âm nhạc, biểu diễn hoặc sự kiện nhằm khuyến khích sự sáng tạo của học sinh.</p>
+                    <p>Tôi là người điềm tĩnh, đáng tin cậy, đề cao sự chuẩn bị, làm việc nhóm và tính chuyên nghiệp. Rất mong được đóng góp vào đội ngũ giáo viên của trường.</p>
+                    <p>Trân trọng,<br>Nick Olivier</p>
+                </div>
+            </div>
+            
+            <div class="right-col">
+                <img src="images/vi.jpg" alt="Profile of Nickolas - Vietnamese">
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Black Footer -->
+    <footer>
+        <a href="docs/BA.pdf" target="_blank" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+            Degree in Psychology
+        </a>
+        <a href="mailto:nickolivierteach@gmail.com">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            nickolivierteach@gmail.com
+        </a>
+        <a href="docs/TFL.png" target="_blank" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            TEFL Certificate
+        </a>
+    </footer>
+
+    <!-- JAVASCRIPT TO HIGHLIGHT FLAGS ON SCROLL -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.lang-section');
+            const navLinks = document.querySelectorAll('.lang-nav a');
+
+            // This sets up the "camera" to watch when a section hits the middle of your screen
+            const observerOptions = {
+                root: null,
+                rootMargin: '-40% 0px -40% 0px', 
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // 1. Turn all flags back to black and white
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        
+                        // 2. Find the ID of the section currently on screen (e.g. "ja")
+                        const id = entry.target.getAttribute('id');
+                        
+                        // 3. Find the matching link and add the color "active" class to it
+                        const activeLink = document.querySelector(`.lang-nav a[href="#${id}"]`);
+                        if (activeLink) activeLink.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            // Start watching all language sections
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+
+</body>
+</html>
